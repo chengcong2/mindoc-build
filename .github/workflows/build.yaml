@@ -26,12 +26,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pushd src
-            go mod tidy -v
-            go build -ldflags "-w" -o mindoc_amd64_v2.1 main.go
-            ls
-            zip mindoc_amd64_v2.1.zip mindoc_amd64_v2.1
-          popd
+          chmod +x build_amd64.sh
+          bash build_amd64.sh
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -41,4 +37,4 @@ jobs:
           target_commitish: main
           draft: false
           files: |
-            *.zip
+            src/*.zip
