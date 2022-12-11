@@ -7,13 +7,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Hello World
-      if: contains(github.event.action, 'hello')
-      run: |
-        echo My name is P3TERX.
-        echo Hello World!
+      - name: Hello World
+        if: contains(github.event.action, 'hello')
+        run: |
+          echo My name is P3TERX.
+          echo Hello World!
 
-    - name: TEST
-      if: github.event.action == 'test'
-      run: |
-        echo test
+      - name: TEST
+        if: github.event.action == 'test'
+        run: |
+          echo test
