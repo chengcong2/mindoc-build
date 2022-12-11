@@ -29,14 +29,16 @@ jobs:
           pushd src
             go mod tidy -v
             go build -ldflags "-w" -o mindoc_amd64_v2.1 main.go
+            ls
+            zip mindoc_amd64_v2.1.zip mindoc_amd64_v2.1
           popd
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: V2.1
+          tag_name: v2.1
           body_path: README.md
           token: ${{ secrets.GITHUB_TOKEN }}
           target_commitish: main
           draft: false
           files: |
-            mindoc_amd64_v2.1
+            *.zip
