@@ -26,13 +26,14 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-
+          pwd
           go mod tidy -v
           go build -v -o mindoc_linux_amd64 -ldflags="-linkmode external -extldflags '-static' -w -X 'github.com/mindoc-org/mindoc/conf.VERSION=$TRAVIS_TAG' -X 'github.com/mindoc-org/mindoc/conf.BUILD_TIME=`date`' -X 'github.com/mindoc-org/mindoc/conf.GO_VERSION=`go version`'"
           ./mindoc_linux_amd64 version
           rm -rf cache commands controllers converter .git .github graphics mail models routers utils runtime conf/*.go
           zip -r mindoc_linux_amd64.zip conf static uploads views lib mindoc_linux_amd64 LICENSE.md
-          
+          pwd
+          ls -all
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
