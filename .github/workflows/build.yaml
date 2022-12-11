@@ -33,7 +33,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.update.outputs.latest_release }}
+          tag_name: V2.1
           body_path: README.md
           token: ${{ secrets.GITHUB_TOKEN }}
           target_commitish: main
