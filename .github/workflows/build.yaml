@@ -26,8 +26,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          chmod +x build_amd64.sh
-          bash build_amd64.sh
+          pushd src
+            chmod +x build_amd64.sh
+            bash build_amd64.sh
+          popd
+          
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
