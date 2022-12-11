@@ -38,7 +38,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v2.1
-          body_path: README.md
+          # body_path: README.md
           token: ${{ secrets.GITHUB_TOKEN }}
           target_commitish: main
           draft: true
