@@ -18,7 +18,7 @@ jobs:
       - name: Checkout mindoc repo
         uses: actions/checkout@v3
         with:
-          repository: mindoc-org/mindoc/tree/v2.1
+          repository: mindoc-org/mindoc@v2.1
           # path: src
           # fetch-depth: 0
       - name: build
