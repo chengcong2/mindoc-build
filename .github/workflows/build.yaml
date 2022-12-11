@@ -1,19 +1,42 @@
-name: Build
+name: Build And Release
 on:
   # 手动运行
   workflow_dispatch
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest]
 
     steps:
-      - name: Hello World
-        if: contains(github.event.action, 'hello')
+      - name: Checkout base repo
+        uses: actions/checkout@v3
+        
+      - name: install golang
+        uses: actions/setup-go@v3
+        with:
+          go-version: '>=1.18.0'
+          check-latest: true
+      - name: Checkout mindoc repo
+        uses: actions/checkout@v3
+        with:
+          repository: mindoc-org/mindoc@v2.1
+          path: src
+          fetch-depth: 0
+      - name: build
+        id: mindoc_build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo My name is P3TERX.
-          echo Hello World!
-
-      - name: TEST
-        if: github.event.action == 'test'
-        run: |
-          echo test
+          pushd src
+            go mod tidy -v
+            go build -ldflags "-w" -o mindoc_amd64_v2.1 main.go
+          popd
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.update.outputs.latest_release }}
+          body_path: README.md
+          token: ${{ secrets.GITHUB_TOKEN }}
+          target_commitish: main
+          draft: false
+          files: |
+            mindoc_amd64_v2.1
