@@ -41,5 +41,4 @@ jobs:
           target_commitish: main
           draft: true
           files: |
-            # src/*.zip
             *.zip
