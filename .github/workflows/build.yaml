@@ -1,4 +1,4 @@
-name: Build And Release
+name: mindoc build And release
 on:
   # 手动运行
   workflow_dispatch
